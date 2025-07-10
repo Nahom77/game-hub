@@ -8,12 +8,14 @@ function App() {
     <Grid
       templateAreas={{
         base: `"nav" "main"`,
-        lg: `"nav nav" "aside main"`,
+        lg: `"nav nav" "aside main"`, // layouts rendered on large devices (>1024px)
       }}
     >
       <GridItem area='nav'>
         <NavBar />
       </GridItem>
+
+      {/* 'aside' will be shown on large devices*/}
       <Show above='lg'>
         <GridItem area='aside'>Aside</GridItem>
       </Show>
