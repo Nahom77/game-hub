@@ -23,6 +23,7 @@ interface FetchGamesResponse {
 const useGames = () => {
   const [games, setGames] = useState<Game[]>([]); // State variable for our games
   const [error, setError] = useState(''); // State variable for our error messages
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     // For handling cancellation
@@ -36,6 +37,7 @@ const useGames = () => {
     // the fetch request when the user is not in that page.
     /////////////////////////////////////////////////
 
+    setLoading(true);
     apiClient
       .get<FetchGamesResponse>('/games', { signal: controller.signal }) // adding a configuration object
       .then(res => {
@@ -45,14 +47,15 @@ const useGames = () => {
         // Since on development mode react renders twice, when it unmounts the first render our error would be "Canceled Error", and when it mounts the 2nd component the error message is displayed at the top, .... so we are protecting this error to be shown
         if (err instanceof CanceledError) return;
         setError(err.message);
-      });
+      })
+      .finally(() => setLoading(false));
 
     // This cleanup function is optionally returned from useEffect (this function), it may not always returned
     // that means it is only returned when the component is unmounted
     return () => controller.abort(); // Cleanup function
   }, []);
 
-  return { games, error };
+  return { games, error, isLoading };
 };
 
 export default useGames;
