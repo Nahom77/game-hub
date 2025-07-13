@@ -10,15 +10,20 @@ interface Props {
 }
 const GameCard = ({ game }: Props) => {
   return (
+    // Box container to wrap the skeletons and main card with the same styling, it takes childrens as a prop
     <GameCardContainer>
       <Card>
+        {/* Game cover image */}
         <Image src={getCroppedImageUrl(game.background_image)} />
         <CardBody>
+          {/* Game title */}
           <Heading fontSize='2xl'>{game.name}</Heading>
           <HStack justifyContent='space-between'>
+            {/* To display icons of platforms, we will do mapping each platform name to its icon in creating other component */}
             <PlatformIcon
               platforms={game.parent_platforms.map(p => p.platform)}
             />
+            {/* Badge (rating score) */}
             <CriticScore score={game.metacritic} />
           </HStack>
         </CardBody>

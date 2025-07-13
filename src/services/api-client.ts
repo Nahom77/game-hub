@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// Creating axios instance
+// Creating axios instance to use with d/t request methods (get/post/update/delete)
 export default axios.create({
   baseURL: 'https://api.rawg.io/api/',
   params: {

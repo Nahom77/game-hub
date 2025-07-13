@@ -13,6 +13,7 @@ export interface Game {
   parent_platforms: { platform: Platform }[];
 }
 
+//  useGames function will return 'useData' function which will contain datas about the games
 const useGames = () => useData<Game>('/games');
 
 export default useGames;

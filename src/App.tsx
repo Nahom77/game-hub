@@ -12,6 +12,7 @@ function App() {
         lg: `"nav nav" "aside main"`, // layouts rendered on large devices (>1024px)
       }}
     >
+      {/* Navbar */}
       <GridItem area='nav'>
         <NavBar />
       </GridItem>
@@ -22,6 +23,8 @@ function App() {
           <GenreList />
         </GridItem>
       </Show>
+
+      {/* Main grid */}
       <GridItem area='main'>
         <GameGrid />
       </GridItem>
