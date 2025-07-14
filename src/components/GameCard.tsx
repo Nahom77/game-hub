@@ -14,7 +14,11 @@ const GameCard = ({ game }: Props) => {
     <GameCardContainer>
       <Card>
         {/* Game cover image */}
-        <Image src={getCroppedImageUrl(game.background_image)} />
+        <Image
+          aspectRatio={16 / 9}
+          // height='150px'
+          src={getCroppedImageUrl(game.background_image)}
+        />
         <CardBody>
           {/* Game title */}
           <Heading fontSize='2xl'>{game.name}</Heading>
