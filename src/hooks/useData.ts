@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type DependencyList } from 'react';
 import apiClient from '../services/api-client';
-import { CanceledError } from 'axios';
+import { CanceledError, type AxiosRequestConfig } from 'axios';
 
 // The shape of fetched response will be generic type (<T>), inorder to use for d/t types of responses that comes from the api
 interface FetchResponse<T> {
@@ -8,10 +8,16 @@ interface FetchResponse<T> {
   results: T[]; // The result is also generic type b/c it comes in d/t format when fetched from the api
 }
 
-const useData = <T>(endpoint: string) => {
+const useData = <T>(
+  endpoint: string,
+  requestConfig?: AxiosRequestConfig,
+  deps: DependencyList = []
+) => {
   const [data, setData] = useState<T[]>([]); // State variable for our datas fetched from the api
   const [error, setError] = useState(''); // State variable for our error messages
   const [isLoading, setLoading] = useState(false);
+
+  console.log(deps);
 
   useEffect(() => {
     // For handling cancellation
@@ -27,7 +33,10 @@ const useData = <T>(endpoint: string) => {
 
     setLoading(true);
     apiClient
-      .get<FetchResponse<T>>(endpoint, { signal: controller.signal }) // adding a configuration object
+      .get<FetchResponse<T>>(endpoint, {
+        signal: controller.signal,
+        ...requestConfig,
+      }) // adding a configuration object
       .then(res => {
         setData(res.data.results);
         setLoading(false);
@@ -44,7 +53,8 @@ const useData = <T>(endpoint: string) => {
     // This cleanup function is optionally returned from useEffect (this function), it may not always returned
     // that means it is only returned when the component is unmounted
     return () => controller.abort(); // Cleanup function
-  }, [endpoint]);
+  }, deps);
+  // }, [depsKey, endpoint, stableConfig]);
 
   return { data, error, isLoading };
 };
