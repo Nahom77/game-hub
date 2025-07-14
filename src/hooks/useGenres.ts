@@ -3,6 +3,7 @@ import useData from './useData';
 export interface Genre {
   id: number;
   name: string;
+  image_background: string;
 }
 
 //  useGenres function will return 'useData' function which will contain datas about the genres
