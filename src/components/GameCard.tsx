@@ -15,7 +15,7 @@ const GameCard = ({ game }: Props) => {
       <Card>
         {/* Game cover image */}
         <Image
-          aspectRatio={16 / 9}
+          aspectRatio={3 / 2}
           // height='150px'
           src={getCroppedImageUrl(game.background_image)}
         />

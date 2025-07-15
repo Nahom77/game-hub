@@ -16,14 +16,16 @@ export interface Game {
 }
 
 //  useGames function will return 'useData' function which will contain datas about the games
-const useGames = (selectedGenre: Genre | null) => {
-  // const genreId = selectedGenre?.id; // number | undefined
-  // const deps: React.DependencyList = genreId ? [genreId] : [];
-
+const useGames = (
+  selectedGenre: Genre | null,
+  selectedPlatform: Platform | null
+) => {
   return useData<Game>(
     '/games',
-    { params: { genres: selectedGenre?.id } },
-    selectedGenre ? [selectedGenre.id] : []
+    { params: { genres: selectedGenre?.id, platforms: selectedPlatform?.id } },
+    selectedGenre || selectedPlatform
+      ? [selectedGenre?.id, selectedPlatform?.id]
+      : []
   );
 };
 
