@@ -1,6 +1,6 @@
 // import type { DependencyList } from 'react';
+import type { GameQuery } from '../App';
 import useData from './useData';
-import type { Genre } from './useGenres';
 
 export interface Platform {
   id: number;
@@ -16,16 +16,19 @@ export interface Game {
 }
 
 //  useGames function will return 'useData' function which will contain datas about the games
-const useGames = (
-  selectedGenre: Genre | null,
-  selectedPlatform: Platform | null
-) => {
+const useGames = (gameQuery: GameQuery) => {
   return useData<Game>(
     '/games',
-    { params: { genres: selectedGenre?.id, platforms: selectedPlatform?.id } },
-    selectedGenre || selectedPlatform
-      ? [selectedGenre?.id, selectedPlatform?.id]
-      : []
+    {
+      params: {
+        genres: gameQuery.genre?.id,
+        platforms: gameQuery.platform?.id,
+      },
+    },
+    [gameQuery]
+    // selectedGenre || selectedPlatform
+    //   ? [selectedGenre?.id, selectedPlatform?.id]
+    //   : []
   );
 };
 
