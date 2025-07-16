@@ -13,7 +13,8 @@ interface Props {
 
 const GameGrid = ({ gameQuery }: Props) => {
   const { data, error, isLoading } = useGames(gameQuery);
-  const skeletons = [1, 2, 3, 4, 5, 6]; // To display just 6 skeletons
+  let counter = 1;
+  const skeletons = Array.from({ length: 23 }, () => (counter += 1)); // To display just 6 skeletons
 
   return (
     <>
@@ -22,9 +23,9 @@ const GameGrid = ({ gameQuery }: Props) => {
 
       {/* Grid container with responsive columns in each device scales */}
       <SimpleGrid
-        columns={{ sm: 1, md: 2, lg: 3, xl: 5 }}
+        columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
         padding='10px'
-        spacing={3}
+        spacing={6}
       >
         {/* Displaying skeletons during loading state  */}
         {isLoading &&
