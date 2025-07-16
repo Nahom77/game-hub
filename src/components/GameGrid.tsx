@@ -16,11 +16,11 @@ const GameGrid = ({ gameQuery }: Props) => {
   let counter = 1;
   const skeletons = Array.from({ length: 23 }, () => (counter += 1)); // To display just 6 skeletons
 
+  /* If there is an error to display it */
+  if (error) return <Text>{error}</Text>;
+
   return (
     <>
-      {/* If there is an error to display it */}
-      {error && <Text>{error}</Text>}
-
       {/* Grid container with responsive columns in each device scales */}
       <SimpleGrid
         columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
